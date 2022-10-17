@@ -1,0 +1,75 @@
+body{
+    margin:0;
+    padding: 0;
+    
+}
+.background {
+    background-image: url("/docs/assets/images/background.jpeg");
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.button{
+    display: inline-grid;
+    float: left;
+    padding-right: 1rem;
+}
+
+.start{
+    height: 3rem;
+    width: 14rem;
+    border-radius: 8px;
+    background-color: black;
+    color: #EEEEEE;
+    font-size: 1rem;
+    border: none;
+}
+
+.pic{
+    height: 4rem;
+    width: 14rem;
+    border-radius: 8px;
+    background-color: #541212;
+    color: #EEEEEE;
+    font-size: 1rem;
+    border: none;
+}
+
+.retry{
+    height: 3rem;
+    width: 14rem;
+    border-radius: 8px;
+    background-color: black;
+    color: #EEEEEE;
+    font-size: 1rem;
+    border: none;
+}
+
+.start:hover {
+    background-color: #541212;
+    color: #EEEEEE;
+}
+
+.retry:hover {
+    background-color: #541212;
+    color: #EEEEEE;
+}
+
+.pic:hover{
+    background-color:#EEEEEE;
+    color: #541212;
+}
+
+h1{
+    font-family: 'Nosifer', cursive;
+    font-size: 5rem;
+    text-align: center;
+    margin-block: 0;
+    color: #EEEEEE;
+}
+
+p{
+    font-family: 'Syne Mono', monospace;
+}
