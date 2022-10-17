@@ -30,34 +30,12 @@ class Game {
         this.clear();
         this.moveObstacle();
         this.moveGhost();
-        /* this.time(); */
         this.checkGameOver();
-        this.camera();
+        this.camera.camera();
         this.chronometer();
         this.score();
     }
-
-    camera(){
-        ctx.strokeStyle = "#FF0000";
-        ctx.strokeRect(210, 100, 600, 400);
-    }
-
-    /* getMinutes() {
-        if (this.currentTime<10){
-            return `0${Math.floor(this.currentTime / 60)}`;
-        } else {
-            return Math.floor(this.currentTime / 60);
-        }
-      }
-    
-    getSeconds() {
-        if (this.currentTime<10){
-            return `0${Math.floor(this.currentTime % 60)}`;
-        } else {
-            return Math.floor(this.currentTime % 60);
-        }
-      } */
-    
+  
     chronometer() {
         const minutes = Math.floor(this.frames / 240);
         const seconds = Math.floor(this.frames / 10);
@@ -100,13 +78,6 @@ class Game {
         ghost( speed2 % 1000 + 210, speed2 % 600, 100, 100, 'yellow');
         speed2 +=10
     }
-    
-    /* time(){
-        const points = Math.floor(this.frames / 30);
-        this.ctx.font = '22px monospace';
-        this.ctx.fillStyle = 'black';
-        this.ctx.fillText(`Time: 00:${points}`, 800, 50);
-    }      */
 
 // AFTER GAME 
 
@@ -127,3 +98,13 @@ class Game {
 }
 
 let game = new Game(ctx);
+
+class Camera {
+
+    camera(x, y, ctx){
+        this.x = x;
+        this.y = y;
+        this.ctx = ctx;
+    }
+    
+}
