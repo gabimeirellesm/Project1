@@ -9,6 +9,67 @@ function obstacles(x, y, w, h, color) {
     ctx.fillRect(x, y, w, h);
 }
 
+/* const videoEnding = document.getElementById('video'); */
+
+class Camera {
+
+    constructor(ctx){
+        this.x = 310;
+        this.y = 95;
+        this.w = 300;
+        this.h = 300;
+        this.ctx = ctx;
+
+        const nikon = new Image();
+        nikon.addEventListener("load", () => {
+            this.nikon = nikon;
+            this.draw();
+        });
+        nikon.src = "./docs/assets/images/camera-removebg-preview.png";
+        
+    }
+
+    draw(){
+        this.ctx.drawImage(this.nikon, 310, 95, 300, 300)     
+        /* this.ctx.strokeStyle = "#FF0000";
+        this.ctx.strokeRect(210, 100, 500, 300); */
+    }
+
+}
+
+class Ghost{
+    constructor(x, y, ctx, color){
+        this.x = x;
+        this.y = y;
+        this.w = 50;
+        this.h = 50;
+        this.ctx = ctx;
+        /* TEM QUE TIRAR A COLOR */
+        this.color = color;
+
+        const fantasma = new Image();
+        fantasma.addEventListener("load", () => {
+            this.fantasma = fantasma;
+            this.draw();
+        });
+        fantasma.src = "./docs/assets/images/ghost-removebg-preview.png";
+    }
+
+    draw(){
+/*      this.ctx.src = "docs/assets/images/Project1/docs/assets/images/ghost-removebg-preview.png";
+        this.ctx.drawImage(this.img,this.x, this.y, this.w, this.h) */
+        this.ctx.drawImage(this.fantasma, this.x, this.y, 200, 200)   
+/*         this.ctx.fillStyle = this.color;
+        this.ctx.fillRect(this.x, this.y, this.w, this.h) */
+    }
+
+    moveGhost(){
+        this.x = speed2 % 900
+        this.y = speed2 % 500
+        speed2 +=10
+    }
+}
+
 class Game {
 
 // ELEMENTS:
@@ -21,11 +82,24 @@ class Game {
         this.seconds = 0;
         this.ghost = null;
         this.camera = null;
-        this.bgImg = new Image();
-        this.bgImg.onload = () => {
-            this.drawBackground()
-        }
-        this.bgImg.src = "docs/assets/images/backgroundCanvas.jpeg"
+        const bgImg = new Image();
+        bgImg.addEventListener("load", () => {
+            this.bgImg = bgImg;
+            this.drawBackground();
+        });
+        bgImg.src = "./docs/assets/images/backgroundCanvas.jpeg";
+
+        const girl = new Image();
+        girl.addEventListener("load", () => {
+            this.girl = girl;
+            this.takePicture();
+        });
+        girl.src = "./docs/assets/images/gameOver.jpeg";
+
+        /* let song = new Audio('./docs/assets/images/music_background.mp3');
+        song.addEventListener("load", () => {
+        song.loop = true;
+        }); */
     }
     
     update = () => {
@@ -40,13 +114,16 @@ class Game {
         this.chronometer();
         this.score();
     }
-
+    
     drawBackground(){
         this.ctx.drawImage(this.bgImg, 0, 0, 1000, 600)
-    }
+    }  
   
     chronometer() {
-        this.seconds = Math.floor(this.frames / 60);
+        this.seconds = Math.floor(this.frames / 60)
+/*             if(seconds < 10){
+                return `0${seconds}`
+            } */
         this.ctx.font = '15px monospace';
         this.ctx.fillStyle = 'white'; 
         this.ctx.fillText(`Time: 00:${this.seconds}`, 750, 50);
@@ -65,7 +142,8 @@ class Game {
         this.intervalId = setInterval(this.update, 1000/60);
         this.ghost = new Ghost(0, 0, this.ctx, 'yellow')
         this.camera = new Camera(this.ctx)
-        this.bgImg.src = "docs/assets/images/backgroundCanvas.jpeg"
+        /* this.song.play(); */
+        /* this.bgImg.src = "Project1/docs/assets/images/backgroundCanvas.jpeg" */
     }
     
     takePicture = () => {
@@ -73,10 +151,14 @@ class Game {
         let ghost = this.ghost;
         let camera = this.camera;
         if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
+           /*  VIDEO */
             this.ctx.fillStyle = "white"
             this.ctx.fillRect(0, 0, 1000, 800)
+           /*  videoEnding.classList.toggle('hidden');
+            videoEnding.classList.toggle('video'); */
+
         } else {
-           this.bgImg.src = "docs/assets/images/gameOver.jpeg"
+            this.ctx.drawImage(this.girl, 0, 0, 900, 500)
         }
     }
 
@@ -105,41 +187,5 @@ class Game {
 let game = new Game(ctx);
 game.drawBackground()
 
-class Camera {
-
-    constructor(ctx){
-        this.x = 210;
-        this.y = 100;
-        this.w = 600;
-        this.h = 400
-        this.ctx = ctx;
-    }
-
-    draw(){
-        this.ctx.strokeStyle = "#FF0000";
-        this.ctx.strokeRect(210, 100, 500, 300);
-    }
-
-}
-
-class Ghost{
-    constructor(x, y, ctx, color){
-        this.x = x;
-        this.y = y;
-        this.w = 100;
-        this.h = 100;
-        this.ctx = ctx;
-        this.color = color;
-    }
-
-    draw(){
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.w, this.h)
-    }
-
-    moveGhost(){
-        this.x = speed2 % 1000 + 210
-        this.y = speed2 % 600
-        speed2 +=20
-    }
-}
+/* let song = new Audio('./docs/assets/images/song/music_background.mp3');
+song.loop = true; */
