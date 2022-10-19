@@ -20,7 +20,13 @@ song.loop = false;
 
 /* ___________________________________________________________________________________________ */
 
+/* __________________________INSTRUCTIONS_____________________________________________________ */
 
+document.getElementById('info-btn').onclick = () => {
+    let instructions = document.getElementById('instructions')
+    instructions.classList.toggle('hidden')
+}
+/* ___________________________________________________________________________________________ */
 
 /* __________________________ELEMENTS: CAMERA, CAT AND GHOST__________________________________ */
 
@@ -56,21 +62,16 @@ class Cat {
         this.w = 50;
         this.h = 50;
         this.ctx = ctx;
+        this.img = new Image()
+        this.img.src = "./docs/assets/images/scaryCat-removebg-preview.png"
 
-        const darkCat = new Image();
-        darkCat.addEventListener("load", () => {
-            this.darkCat = darkCat;
-            this.draw();
-        });
-        darkCat.src = "./docs/assets/images/scaryCat-removebg-preview.png";
-        
     }
 
     draw(){
-        this.ctx.drawImage(this.fantasma, this.x, this.y, 200, 200)     
+        this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h)     
     }
 
-    moveObstacle(){
+    moveCat(){
         this.x = speedCat % 900
         this.y = speedCat % 500
         speedCat +=5
@@ -85,18 +86,15 @@ class Ghost{
         this.h = 50;
         this.ctx = ctx;
 
-        const fantasma = new Image();
-        fantasma.addEventListener("load", () => {
-            this.fantasma = fantasma;
-            this.draw();
-        });
-        fantasma.src = "./docs/assets/images/ghost-removebg-preview.png";
+        this.img = new Image()
+        this.img.src = "./docs/assets/images/ghost-removebg-preview.png";
+  
     }
 
     draw(){
 /*      this.ctx.src = "docs/assets/images/Project1/docs/assets/images/ghost-removebg-preview.png";
         this.ctx.drawImage(this.img,this.x, this.y, this.w, this.h) */
-        this.ctx.drawImage(this.fantasma, this.x, this.y, 200, 200)   
+        this.ctx.drawImage(this.img, this.x, this.y, 200, 200)   
 /*         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.w, this.h) */
     }
@@ -108,32 +106,7 @@ class Ghost{
     }
 }
 
-
-class Instructions{
-    constructor(ctx){
-        this.x = 0;
-        this.y = 0;
-        this.w = 900;
-        this.h = 500;
-        this.ctx = ctx;
-
-        const info = new Image();
-        info.addEventListener("load", () => {
-            this.info = info;
-            this.draw();
-        });
-        info.src = "./docs/assets/images/instructions.png";
-        
-    }
-
-    draw(){
-        this.ctx.drawImage(this.info, 0, 0, 900, 500) 
-    }
-}
-
 /* ___________________________________________________________________________________________ */
-
-
 
 /* __________________________PLAY GAME________________________________________________________ */
 
@@ -180,13 +153,13 @@ class Game {
             this.frames++
             this.clear();
             this.drawBackground();
-            this.cat.moveObstacle();
+            this.cat.moveCat();
             this.ghost.moveGhost();
             this.ghost.draw()
             this.checkGameOver();
             this.camera.draw();
             this.cat.draw();
-            this.instructions.draw();
+            //this.instructions.draw();
             this.chronometer();
             this.score();
 
@@ -197,17 +170,19 @@ class Game {
         }  
       
         chronometer() {
-            const seconds = Math.floor(this.frames / 60)
-                /*  if(seconds < 10){
-                    return `0${seconds}`
-                } */
+            this.seconds = Math.floor(this.frames / 60)
+
+            let secondsToPrint = Math.floor(this.frames / 60)
+                  if(this.seconds < 10){
+                    secondsToPrint = `0${this.seconds}`
+                } 
             this.ctx.font = '15px monospace';
             this.ctx.fillStyle = 'white'; 
-            this.ctx.fillText(`Time: 00:${this.seconds}`, 50, 50);
+            this.ctx.fillText(`Time: 00:${secondsToPrint}`, 50, 50);
         }
     
         score(){
-            const points = Math.floor(this.frames / 20);
+            let points = (100 - Math.floor(this.frames / 30));
             this.ctx.font = '15px monospace';
             this.ctx.fillStyle = 'white';
             this.ctx.fillText(`Score: ${points}`, 750, 70);
@@ -218,9 +193,9 @@ class Game {
     
         start(){
             this.intervalId = setInterval(this.update, 1000/60);
-            this.ghost = new Ghost(0, 0, this.ctx, 'yellow')
+            this.ghost = new Ghost(0, 0, this.ctx)
             this.camera = new Camera(this.ctx)
-            this.cat = new Cat(this.ctx)
+            this.cat = new Cat(0, 0,this.ctx)
             song.play();
             this.frames++
             this.score();
