@@ -108,6 +108,29 @@ class Ghost{
     }
 }
 
+
+class Instructions{
+    constructor(ctx){
+        this.x = 0;
+        this.y = 0;
+        this.w = 900;
+        this.h = 500;
+        this.ctx = ctx;
+
+        const info = new Image();
+        info.addEventListener("load", () => {
+            this.info = info;
+            this.draw();
+        });
+        info.src = "./docs/assets/images/instructions.png";
+        
+    }
+
+    draw(){
+        this.ctx.drawImage(this.info, 0, 0, 900, 500) 
+    }
+}
+
 /* ___________________________________________________________________________________________ */
 
 
@@ -163,8 +186,10 @@ class Game {
             this.checkGameOver();
             this.camera.draw();
             this.cat.draw();
+            this.instructions.draw();
             this.chronometer();
             this.score();
+
         } 
         
         drawBackground() {
@@ -187,7 +212,8 @@ class Game {
             this.ctx.fillStyle = 'white';
             this.ctx.fillText(`Score: ${points}`, 750, 70);
         }  
-    
+
+
     // ACTION OF THE GAME:
     
         start(){
