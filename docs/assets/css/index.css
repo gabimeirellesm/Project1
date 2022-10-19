@@ -122,3 +122,68 @@ h1{
     width: 12rem;
     height: 6rem;
 }
+
+@font-face {
+    font-family: 'Secret Files II';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Secret Files II'), url('https://fonts.cdnfonts.com/s/14395/secretfilesii.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'MaszynaAEG';
+    font-style: normal;
+    font-weight: 400;
+    src: local('MaszynaAEG'), url('https://fonts.cdnfonts.com/s/4667/MaszynaAEG.woff') format('woff');
+}
+@font-face {
+    font-family: 'Maszyna Plus';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Maszyna Plus'), url('https://fonts.cdnfonts.com/s/4667/MaszynaPlus.woff') format('woff');
+}
+/* latin */
+@font-face {
+    font-family: 'Creepster';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/creepster/v13/AlZy_zVUqJz4yMrniH4Rcn35fh4Dog.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Nosifer';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/nosifer/v20/ZGjXol5JTp0g5bxZWCRbVRFeCDpK1A.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Nosifer';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/nosifer/v20/ZGjXol5JTp0g5bxZWCpbVRFeCDo.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Syne Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/synemono/v15/K2FzfZNHj_FHBmRbFvHDK6qlLSj6ZVOM.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Syne Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/synemono/v15/K2FzfZNHj_FHBmRbFvHDJaqlLSj6ZQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }

@@ -45,7 +45,7 @@ class Camera {
     draw(){
         this.ctx.drawImage(this.nikon, 310, 95, 300, 300) 
     }
-
+ 
 }
 
 class Cat {
