@@ -81,11 +81,13 @@ h1{
 p{
     font-family: 'Syne Mono', monospace;
 }
+
 .hidden {
     display: none;
-  }
+}
+
 #video {
     float: center;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
 }

@@ -1,29 +1,10 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+let speedCat = 0;
+let speedGhost = 0;
 
-
-/* 
- class Song{
-    play(){
-let song = new Audio('./docs/assets/images/song/music_background.mp3');
-song.loop = false;
-
-let screamSong = new Audio('./docs/assets/images/song/scream1.mp3')
-song.loop = false;
-    }
-
-
-
-}
- */
-let speed = 0;
-let speed2 = 0;
-
-function obstacles(x, y, w, h, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, w, h);
-}
+/* __________________________VIDEO E MUSICA____________________________________________________ */
 
 const videoEnding = document.getElementById('video');
 const myCanvas = document.getElementById('canvas');
@@ -36,6 +17,12 @@ song.loop = false;
 
 let screamSong = new Audio('./docs/assets/images/song/scream1.mp3')
 song.loop = false;
+
+/* ___________________________________________________________________________________________ */
+
+
+
+/* __________________________ELEMENTS: CAMERA, CAT AND GHOST__________________________________ */
 
 class Camera {
 
@@ -56,22 +43,47 @@ class Camera {
     }
 
     draw(){
-        this.ctx.drawImage(this.nikon, 310, 95, 300, 300)     
-        /* this.ctx.strokeStyle = "#FF0000";
-        this.ctx.strokeRect(210, 100, 500, 300); */
+        this.ctx.drawImage(this.nikon, 310, 95, 300, 300) 
     }
 
 }
 
-class Ghost{
-    constructor(x, y, ctx, color){
+class Cat {
+
+    constructor(x, y, ctx){
         this.x = x;
         this.y = y;
         this.w = 50;
         this.h = 50;
         this.ctx = ctx;
-        /* TEM QUE TIRAR A COLOR */
-        this.color = color;
+
+        const darkCat = new Image();
+        darkCat.addEventListener("load", () => {
+            this.darkCat = darkCat;
+            this.draw();
+        });
+        darkCat.src = "./docs/assets/images/scaryCat-removebg-preview.png";
+        
+    }
+
+    draw(){
+        this.ctx.drawImage(this.fantasma, this.x, this.y, 200, 200)     
+    }
+
+    moveObstacle(){
+        this.x = speedCat % 900
+        this.y = speedCat % 500
+        speedCat +=5
+    }
+}
+
+class Ghost{
+    constructor(x, y, ctx){
+        this.x = x;
+        this.y = y;
+        this.w = 50;
+        this.h = 50;
+        this.ctx = ctx;
 
         const fantasma = new Image();
         fantasma.addEventListener("load", () => {
@@ -90,11 +102,17 @@ class Ghost{
     }
 
     moveGhost(){
-        this.x = speed2 % 900
-        this.y = speed2 % 500
-        speed2 +=10
+        this.x = speedGhost % 900
+        this.y = speedGhost % 500
+        speedGhost +=5
     }
 }
+
+/* ___________________________________________________________________________________________ */
+
+
+
+/* __________________________PLAY GAME________________________________________________________ */
 
 
 class Game {
@@ -109,11 +127,13 @@ class Game {
             this.seconds = 0;
             this.ghost = null;
             this.camera = null;
+            this.cat = null;
             const bgImg = new Image();
             bgImg.addEventListener("load", () => {
                 this.bgImg = bgImg;
-                this.drawBackground();
+                this.drawBackground();   
             });
+
             bgImg.src = "./docs/assets/images/backgroundCanvas.jpeg";
     
             const girl = new Image();
@@ -137,27 +157,28 @@ class Game {
             this.frames++
             this.clear();
             this.drawBackground();
-            this.moveObstacle();
+            this.cat.moveObstacle();
             this.ghost.moveGhost();
             this.ghost.draw()
             this.checkGameOver();
             this.camera.draw();
+            this.cat.draw();
             this.chronometer();
             this.score();
         } 
         
         drawBackground() {
-            this.ctx.drawImage(this.bgImg, 0, 0, 1000, 600)
+            this.ctx.drawImage(this.bgImg, 0, 0, 900, 500)
         }  
       
         chronometer() {
-            this.seconds = Math.floor(this.frames / 60)
-    /*             if(seconds < 10){
+            const seconds = Math.floor(this.frames / 60)
+                /*  if(seconds < 10){
                     return `0${seconds}`
                 } */
             this.ctx.font = '15px monospace';
             this.ctx.fillStyle = 'white'; 
-            this.ctx.fillText(`Time: 00:${this.seconds}`, 750, 50);
+            this.ctx.fillText(`Time: 00:${this.seconds}`, 50, 50);
         }
     
         score(){
@@ -173,7 +194,11 @@ class Game {
             this.intervalId = setInterval(this.update, 1000/60);
             this.ghost = new Ghost(0, 0, this.ctx, 'yellow')
             this.camera = new Camera(this.ctx)
+            this.cat = new Cat(this.ctx)
             song.play();
+            this.frames++
+            this.score();
+            this.chronometer();
             
         }
         
@@ -182,7 +207,6 @@ class Game {
             let ghost = this.ghost;
             let camera = this.camera;
             if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
-               /*  VIDEO */
                videoEnding.classList.remove('hidden');
                videoEnding.load();
                restartGame.classList.remove('hidden');
@@ -202,20 +226,29 @@ class Game {
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
         }
     
-        moveObstacle(){
-            obstacles( speed % 500 + 210, speed % 300, 40, 40, 'black');
-            speed += 3
-        }
-    
-    // AFTER GAME 
-    
         checkGameOver(){
             if(this.seconds >= 30){
+                this.ctx.drawImage(this.girl, 0, 0, 900, 500)
+                screamSong.play();
                 this.clearInterval(intervalId)
             }       
     }
     }
 
-
 let game = new Game(ctx);
 game.drawBackground()
+
+/* ___________________________________________________________________________________________ */
+/* ___________________________________________________________________________________________ */
+
+/* 
+ class Song{
+    play(){
+let song = new Audio('./docs/assets/images/song/music_background.mp3');
+song.loop = false;
+
+let screamSong = new Audio('./docs/assets/images/song/scream1.mp3')
+song.loop = false;
+    }
+}
+ */
