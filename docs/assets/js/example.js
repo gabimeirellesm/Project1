@@ -1,6 +1,22 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+
+
+/* 
+ class Song{
+    play(){
+let song = new Audio('./docs/assets/images/song/music_background.mp3');
+song.loop = false;
+
+let screamSong = new Audio('./docs/assets/images/song/scream1.mp3')
+song.loop = false;
+    }
+
+
+
+}
+ */
 let speed = 0;
 let speed2 = 0;
 
@@ -9,7 +25,17 @@ function obstacles(x, y, w, h, color) {
     ctx.fillRect(x, y, w, h);
 }
 
-/* const videoEnding = document.getElementById('video'); */
+const videoEnding = document.getElementById('video');
+const myCanvas = document.getElementById('canvas');
+const btns = document.getElementById('myBtn');
+const restartGame = document.getElementById('retry')
+videoEnding.autoPlay = true;
+
+let song = new Audio('./docs/assets/images/song/music_background.mp3');
+song.loop = false;
+
+let screamSong = new Audio('./docs/assets/images/song/scream1.mp3')
+song.loop = false;
 
 class Camera {
 
@@ -70,122 +96,126 @@ class Ghost{
     }
 }
 
+
 class Game {
 
-// ELEMENTS:
-
-    constructor(ctx){
-        this.ctx = ctx;
-        this.intervalId = null;
-        this.frames = 0;
-        this.currentTime = 0;
-        this.seconds = 0;
-        this.ghost = null;
-        this.camera = null;
-        const bgImg = new Image();
-        bgImg.addEventListener("load", () => {
-            this.bgImg = bgImg;
-            this.drawBackground();
-        });
-        bgImg.src = "./docs/assets/images/backgroundCanvas.jpeg";
-
-        const girl = new Image();
-        girl.addEventListener("load", () => {
-            this.girl = girl;
-            this.takePicture();
-        });
-        girl.src = "./docs/assets/images/gameOver.jpeg";
-
-        /* let song = new Audio('./docs/assets/images/music_background.mp3');
-        song.addEventListener("load", () => {
-        song.loop = true;
-        }); */
-    }
+    // ELEMENTS:
     
-    update = () => {
-        this.frames++
-        this.clear();
-        this.drawBackground()
-        this.moveObstacle();
-        this.ghost.moveGhost();
-        this.ghost.draw()
-        this.checkGameOver();
-        this.camera.draw();
-        this.chronometer();
-        this.score();
-    }
+        constructor(ctx){
+            this.ctx = ctx;
+            this.intervalId = null;
+            this.frames = 0;
+            this.currentTime = 0;
+            this.seconds = 0;
+            this.ghost = null;
+            this.camera = null;
+            const bgImg = new Image();
+            bgImg.addEventListener("load", () => {
+                this.bgImg = bgImg;
+                this.drawBackground();
+            });
+            bgImg.src = "./docs/assets/images/backgroundCanvas.jpeg";
     
-    drawBackground(){
-        this.ctx.drawImage(this.bgImg, 0, 0, 1000, 600)
-    }  
-  
-    chronometer() {
-        this.seconds = Math.floor(this.frames / 60)
-/*             if(seconds < 10){
-                return `0${seconds}`
-            } */
-        this.ctx.font = '15px monospace';
-        this.ctx.fillStyle = 'white'; 
-        this.ctx.fillText(`Time: 00:${this.seconds}`, 750, 50);
-    }
-
-    score(){
-        const points = Math.floor(this.frames / 20);
-        this.ctx.font = '15px monospace';
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Score: ${points}`, 750, 70);
-    }  
-
-// ACTION OF THE GAME:
-
-    start(){
-        this.intervalId = setInterval(this.update, 1000/60);
-        this.ghost = new Ghost(0, 0, this.ctx, 'yellow')
-        this.camera = new Camera(this.ctx)
-        /* this.song.play(); */
-        /* this.bgImg.src = "Project1/docs/assets/images/backgroundCanvas.jpeg" */
-    }
+            const girl = new Image();
+            girl.addEventListener("load", () => {
+                this.girl = girl;
+                this.takePicture();
+            });
+            girl.src = "./docs/assets/images/gameOver.jpeg";
     
-    takePicture = () => {
-        clearInterval(this.intervalId)
-        let ghost = this.ghost;
-        let camera = this.camera;
-        if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
-           /*  VIDEO */
-            this.ctx.fillStyle = "white"
-            this.ctx.fillRect(0, 0, 1000, 800)
-           /*  videoEnding.classList.toggle('hidden');
-            videoEnding.classList.toggle('video'); */
-
-        } else {
-            this.ctx.drawImage(this.girl, 0, 0, 900, 500)
+            /* let song = new Audio('./docs/assets/images/music_background.mp3');
+            song.addEventListener("load", () => {
+            song.loop = true;
+            }); */
         }
-    }
-
-    playAgain(){
-        window.location.reload();
-    }
     
-    clear(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        update = () => {
+            myCanvas.classList.remove('hidden');
+            restartGame.classList.add('hidden');
+            /* btns.classList.remove('hidden'); */
+            videoEnding.classList.add('hidden');
+            this.frames++
+            this.clear();
+            this.drawBackground();
+            this.moveObstacle();
+            this.ghost.moveGhost();
+            this.ghost.draw()
+            this.checkGameOver();
+            this.camera.draw();
+            this.chronometer();
+            this.score();
+        } 
+        
+        drawBackground() {
+            this.ctx.drawImage(this.bgImg, 0, 0, 1000, 600)
+        }  
+      
+        chronometer() {
+            this.seconds = Math.floor(this.frames / 60)
+    /*             if(seconds < 10){
+                    return `0${seconds}`
+                } */
+            this.ctx.font = '15px monospace';
+            this.ctx.fillStyle = 'white'; 
+            this.ctx.fillText(`Time: 00:${this.seconds}`, 750, 50);
+        }
+    
+        score(){
+            const points = Math.floor(this.frames / 20);
+            this.ctx.font = '15px monospace';
+            this.ctx.fillStyle = 'white';
+            this.ctx.fillText(`Score: ${points}`, 750, 70);
+        }  
+    
+    // ACTION OF THE GAME:
+    
+        start(){
+            this.intervalId = setInterval(this.update, 1000/60);
+            this.ghost = new Ghost(0, 0, this.ctx, 'yellow')
+            this.camera = new Camera(this.ctx)
+            song.play();
+            
+        }
+        
+        takePicture = () => {
+            clearInterval(this.intervalId)
+            let ghost = this.ghost;
+            let camera = this.camera;
+            if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
+               /*  VIDEO */
+               videoEnding.classList.remove('hidden');
+               videoEnding.load();
+               restartGame.classList.remove('hidden');
+                myCanvas.classList.add('hidden');
+                btns.classList.add('hidden');
+            } else {
+                this.ctx.drawImage(this.girl, 0, 0, 900, 500)
+                screamSong.play();
+            }
+        }
+    
+        playAgain(){
+            window.location.reload();
+        }
+        
+        clear(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        }
+    
+        moveObstacle(){
+            obstacles( speed % 500 + 210, speed % 300, 40, 40, 'black');
+            speed += 3
+        }
+    
+    // AFTER GAME 
+    
+        checkGameOver(){
+            if(this.seconds >= 30){
+                this.clearInterval(intervalId)
+            }       
+    }
     }
 
-    moveObstacle(){
-        obstacles( speed % 500 + 210, speed % 300, 40, 40, 'black');
-        speed += 3
-    }
-
-// AFTER GAME 
-
-    checkGameOver(){
-        if(this.seconds >= 30){
-            this.clearInterval(intervalId)
-        }       
-}
-}
 
 let game = new Game(ctx);
 game.drawBackground()
-
-/* let song = new Audio('./docs/assets/images/song/music_background.mp3');
-song.loop = true; */
