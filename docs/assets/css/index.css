@@ -145,7 +145,43 @@ h1{
       height: 100vh;
     }
 
+#instructions h1{
+    font-size: 3.5rem;
+    padding-right: 15rem;
+}
 
+/* ___________________________________________________________________________________________ */
+/* ______________________________CONTEXT FIELD________________________________________________ */
+
+.ctx{
+    font-family: 'Syne Mono', monospace;
+    color:#EEEEEE;
+    font-weight: 1rem;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+}
+
+#information {
+    background-image: url("../images/background.jpeg");
+    background-size: cover;
+     position: fixed;
+     top: 0;
+     right: 0;
+      width: 83vw  ;
+      height: 100vh;
+    }
+
+.infoImgFirst{
+    display: inline-flex;
+    width: 5rem;
+    height: 5rem;
+}
+
+#information h1{
+    font-size: 3.5rem;
+    padding-right: 15rem;
+}
 /* ___________________________________________________________________________________________ */
 /* ______________________________FONT FAMILY__________________________________________________ */
 

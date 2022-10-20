@@ -13,7 +13,8 @@
   <h1>SCARY GAME</h1>
 
   <div class="button" id="myBtn">
-    <input class="instructionsButton" type="button" class="btn" value="Instructions" id="info-btn" >
+    <input class="instructionsButton" type="button" class="btn" value="Context" id="info-btn" >
+    <input class="retry" type="button" class="btn" value="Instructions" id="ctx-btn">
     <input class="start" type="button" class="btn" value="Start" onClick="game.start()">
     <input class="pic" type="button" class="btn" value="Take Picture" onClick="game.takePicture()">
     <input class="retry" type="button" class="btn" value="Play again" onClick="game.playAgain()">
@@ -22,31 +23,49 @@
   <canvas id="canvas" style="border: 1px solid whitesmoke" width="900px" height="500px"></canvas>   
   
   <div>
-  <video autoPlay id="video" class="video hidden"><source src="./docs/assets/images/video2.mp4"></video>
+  <video id="video" class="video hidden"><source src="./docs/assets/images/video2.mp4"></video>
   <button id="retry" class="hidden retry" onClick="game.playAgain()">Play again</button>
   </div>
   
   <script src="../Project1/docs/assets/js/example.js"></script> 
 
 <div id="instructions" class="hidden">
-  <H1>Instructions</H1>
+  <H1>Context</H1>
   <div class="info">
-    <div class="block1">
+    <div>
       <p>You've just moved in but you're still not feeling at home...</p>
-      <p>You have noticed some very strange things happening in the house<br>that make you believe that someone else is living with you...</p>
+      <p>You have noticed some very strange things happening in the house<br>that makes you believe that someone else is living with you...</p>
       <h2>BUT WHO ?</h2>
       <p>You went to the police but they laughed at you and said:</p>
       <h4>"- Madam, you better not do drugs or drink so much when you're alone"</h4>
       <h2>I DO NOT DO DRUGS! I do crossfit .-.</h2>
     </div>
-    <div class="block2">
-      <p>I'm determined to get evidence to throw in these cops' faces. For that, <br>I'll hit the "take picture" button as soon as the mysterious individual<br> appears on my camera.Of course, before that I must press "start".</P>
-        <img src="../Project1/docs/assets/images/Captura de Tela 2022-10-19 às 16.20.26.png">
-        <img src="../Project1/docs/assets/images/Captura de Tela 2022-10-19 às 16.22.17.png">
-        <p>I just hope that person doesn't get upset with me, I just want to be<br> able to live alone in my house. If she has nowhere else to go, I can <br>even help find her a new location, but I just need to know WHO that<br> person is.</p>
+    <div>
+      <p>I'm determined to get evidence to throw in these cops' faces. For that,<br> I'm going to get my camera and I'm going to photograph this<br> person!
+      <p>I just hope that person doesn't get upset with me, I just want to be<br> able to live alone in my house. If she has nowhere else to go, I can <br>even help find her a new location, but I just need to know WHO that<br> person is.</p>
       </div>
     </div>
   </div>
+
+<div id="information" class="hidden">
+      <h1>Instructions</h1>
+      <div class="info">
+        <p>The game will start after pressing the "start" button.Your objective is<br> to capture the ghost inside the camera, which will be represented by this<br>image below. To do this, you must click on the "take picture"<br> button when the object is exactly inside the camera's square.<br>To play again, you must press the "play again" button and then "start"</p>
+        <div class="infoImgFirst">
+        <img src="../Project1/docs/assets/images/start.png">
+        <img src="../Project1/docs/assets/images/ghost-removebg-preview.png">
+        <img src="../Project1/docs/assets/images/takePicture.png">
+        <img src="../Project1/docs/assets/images/playAgain.png">
+        </div>
+        <br>
+        <p>Attention: If the object is not completely within the selected area, you will<br> not win the game.</p>
+        <p>You will come across other obstacles that will make it difficult to capture the <br>ghost on camera. Furthermore, time is also your enemy. That way, you<br>only have 30 seconds maximum to take the picture.</p>
+        <h2>Good luck!</h2>
+        <p><span style="color:#fad900">WARNING:</span> If you are sensitive to terrifying sounds or macabre images, this game<br> should not be played.</p>
+    </div>
+</div>
+
+
     
     
     

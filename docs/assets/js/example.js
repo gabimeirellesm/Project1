@@ -13,7 +13,7 @@ const videoEnding = document.getElementById('video');
 const myCanvas = document.getElementById('canvas');
 const btns = document.getElementById('myBtn');
 const restartGame = document.getElementById('retry')
-videoEnding.autoPlay = true;
+/* videoEnding.autoPlay = true; */
 
 let song = new Audio('./docs/assets/images/song/music_background.mp3');
 song.loop = false;
@@ -23,12 +23,18 @@ song.loop = false;
 
 /* ___________________________________________________________________________________________ */
 
-/* __________________________INSTRUCTIONS_____________________________________________________ */
+/* __________________________INSTRUCTIONS AND CONTEXT_________________________________________ */
 
 document.getElementById('info-btn').onclick = () => {
     let instructions = document.getElementById('instructions')
     instructions.classList.toggle('hidden')
 }
+
+document.getElementById('ctx-btn').onclick = () => {
+    let instructions = document.getElementById('information')
+    instructions.classList.toggle('hidden')
+}
+
 /* ___________________________________________________________________________________________ */
 
 /* __________________________ELEMENTS: CAMERA ________________________________________________ */
@@ -302,11 +308,11 @@ class Game {
             let ghost = this.ghost;
             let camera = this.camera;
             if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
-               videoEnding.classList.remove('hidden');
-               videoEnding.load();
                restartGame.classList.remove('hidden');
                 myCanvas.classList.add('hidden');
                 btns.classList.add('hidden');
+                videoEnding.classList.remove('hidden');
+               videoEnding.load();
             } else {
                 this.ctx.drawImage(this.girl, 0, 0, 900, 500)
                 screamSong.play();
@@ -315,6 +321,8 @@ class Game {
     
         playAgain(){
             window.location.reload();
+            btns.classList.remove('hidden');
+            this.start();
         }
         
         clear(){
