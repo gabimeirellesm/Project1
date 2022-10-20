@@ -35,6 +35,7 @@ document.getElementById('ctx-btn').onclick = () => {
     instructions.classList.toggle('hidden')
 }
 
+
 /* ___________________________________________________________________________________________ */
 
 /* __________________________ELEMENTS: CAMERA ________________________________________________ */
@@ -189,9 +190,11 @@ class Ghost{
     }
 
     moveGhost(){
-        this.x = speedGhost % 900
-        this.y = speedGhost % 500
-        speedGhost +=5
+       /*  this.x = speedGhost % 900  */
+        this.x = Math.floor(Math.random(this.w) * this.w + this.w) + speedGhost % 900
+        this.y = Math.floor(Math.random(this.y) * this.y - this.y) + speedGhost % 500
+        /* this.y = speedGhost % 500 */
+        speedGhost +=3
     }
 }
 
@@ -275,14 +278,14 @@ class Game {
                 } 
             this.ctx.font = '15px monospace';
             this.ctx.fillStyle = 'white'; 
-            this.ctx.fillText(`Time: 00:${secondsToPrint}`, 50, 50);
+            this.ctx.fillText(`Time: 00:${secondsToPrint}`, 750, 105);
         }
     
         score(){
-            let points = (100 - Math.floor(this.frames / 30));
+            let points = (100 - Math.floor(this.frames / 29));
             this.ctx.font = '15px monospace';
             this.ctx.fillStyle = 'white';
-            this.ctx.fillText(`Score: ${points}`, 750, 70);
+            this.ctx.fillText(`Score: ${points}`, 750, 90);
         }  
 
 
@@ -330,11 +333,11 @@ class Game {
         }
     
         checkGameOver(){
-            if(this.seconds >= 30){
+            if(this.seconds >= 45){
                 this.ctx.drawImage(this.girl, 0, 0, 900, 500)
                 screamSong.play();
                 this.clearInterval(intervalId)
-            }       
+            }  
     }
     }
 
