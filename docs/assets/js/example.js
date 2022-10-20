@@ -3,6 +3,9 @@ const ctx = canvas.getContext('2d');
 
 let speedCat = 0;
 let speedGhost = 0;
+let speedBlood = 0;
+let speedEyes = 0;
+let speedBirds = 0;
 
 /* __________________________VIDEO E MUSICA____________________________________________________ */
 
@@ -28,7 +31,7 @@ document.getElementById('info-btn').onclick = () => {
 }
 /* ___________________________________________________________________________________________ */
 
-/* __________________________ELEMENTS: CAMERA, CAT AND GHOST__________________________________ */
+/* __________________________ELEMENTS: CAMERA ________________________________________________ */
 
 class Camera {
 
@@ -54,13 +57,17 @@ class Camera {
  
 }
 
+/* ___________________________________________________________________________________________ */
+
+/* __________________________ELEMENTS: OBSTACLES______________________________________________ */
+
 class Cat {
 
     constructor(x, y, ctx){
         this.x = x;
         this.y = y;
-        this.w = 50;
-        this.h = 50;
+        this.w = 80;
+        this.h = 80;
         this.ctx = ctx;
         this.img = new Image()
         this.img.src = "./docs/assets/images/scaryCat-removebg-preview.png"
@@ -72,11 +79,87 @@ class Cat {
     }
 
     moveCat(){
-        this.x = speedCat % 900
+        this.x = speedCat % 600
         this.y = speedCat % 500
-        speedCat +=5
+        speedCat +=10
     }
 }
+
+class Blood {
+
+    constructor(x, y, ctx){
+        this.x = x;
+        this.y = y;
+        this.w = 90;
+        this.h = 90;
+        this.ctx = ctx;
+        this.img = new Image()
+        this.img.src = "./docs/assets/images/blood-removebg-preview.png"
+
+    }
+
+    draw(){
+        this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h)     
+    }
+
+    moveBlood(){
+        this.x = speedBlood % 600
+        this.y = speedBlood % 500
+        speedBlood +=2
+    }
+}
+
+class Eyes {
+
+    constructor(x, y, ctx){
+        this.x = x;
+        this.y = y;
+        this.w = 100;
+        this.h = 100;
+        this.ctx = ctx;
+        this.img = new Image()
+        this.img.src = "./docs/assets/images/eyes-removebg-preview.png"
+
+    }
+
+    draw(){
+        this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h)     
+    }
+
+    moveEyes(){
+        this.x = speedEyes % 900
+        this.y = speedEyes % 500
+        speedEyes +=4
+    }
+}
+
+
+class Birds {
+
+    constructor(x, y, ctx){
+        this.x = x;
+        this.y = y;
+        this.w = 300;
+        this.h = 300;
+        this.ctx = ctx;
+        this.img = new Image()
+        this.img.src = "./docs/assets/images/birds-removebg-preview.png"
+
+    }
+
+    draw(){
+        this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h)     
+    }
+
+    moveBirds(){
+        this.x = speedBirds % 900
+        this.y = speedBirds % 500
+        speedBirds +=8
+    }
+}
+/* ___________________________________________________________________________________________ */
+
+/* __________________________ELEMENTS: GHOST  ________________________________________________ */
 
 class Ghost{
     constructor(x, y, ctx){
@@ -123,6 +206,9 @@ class Game {
             this.seconds = 0;
             this.ghost = null;
             this.camera = null;
+            this.birds = null;
+            this.eyes = null;
+            this.blood = null;
             this.cat = null;
             const bgImg = new Image();
             bgImg.addEventListener("load", () => {
@@ -153,13 +239,18 @@ class Game {
             this.frames++
             this.clear();
             this.drawBackground();
+            this.birds.moveBirds();
+            this.eyes.moveEyes();
+            this.blood.moveBlood();
             this.cat.moveCat();
             this.ghost.moveGhost();
             this.ghost.draw()
             this.checkGameOver();
             this.camera.draw();
+            this.birds.draw();
+            this.eyes.draw();
+            this.blood.draw();
             this.cat.draw();
-            //this.instructions.draw();
             this.chronometer();
             this.score();
 
@@ -195,6 +286,9 @@ class Game {
             this.intervalId = setInterval(this.update, 1000/60);
             this.ghost = new Ghost(0, 0, this.ctx)
             this.camera = new Camera(this.ctx)
+            this.birds = new Birds(0,0,this.ctx);
+            this.eyes = new Eyes(0,0,this.ctx);
+            this.blood = new Blood(0,0,this.ctx);
             this.cat = new Cat(0, 0,this.ctx)
             song.play();
             this.frames++
