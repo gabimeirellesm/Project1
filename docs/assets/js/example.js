@@ -268,6 +268,7 @@ class Game {
         
         drawBackground() {
             this.ctx.drawImage(this.bgImg, 0, 0, 900, 500)
+            videoEnding.pause();
         }  
       
         chronometer() {
@@ -311,12 +312,12 @@ class Game {
             clearInterval(this.intervalId)
             let ghost = this.ghost;
             let camera = this.camera;
-            if(ghost.x % 900 > camera.x && ghost.x % 900 + ghost.w < camera.x + camera.w && ghost.y % 500> camera.y && ghost.y % 500 + ghost.h < camera.y + camera.h){
+            if((ghost.x % 900 > camera.x) && (ghost.x % 900 + ghost.w < camera.x + camera.w) && (ghost.y % 500> camera.y) && (ghost.y % 500 + ghost.h < camera.y + camera.h)){
                restartGame.classList.remove('hidden');
                 myCanvas.classList.add('hidden');
                 btns.classList.add('hidden');
                 videoEnding.classList.remove('hidden');
-               videoEnding.load();
+                videoEnding.play();
             } else {
                 this.ctx.drawImage(this.girl, 0, 0, 900, 500)
                 screamSong.play();
