@@ -2,10 +2,11 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 let speedCat = 0;
-let speedGhost = 0;
+let speedGhost = 6;
 let speedBlood = 0;
 let speedEyes = 0;
 let speedBirds = 0;
+
 
 /* __________________________VIDEO E MUSICA____________________________________________________ */
 
@@ -169,9 +170,9 @@ class Birds {
 /* __________________________ELEMENTS: GHOST  ________________________________________________ */
 
 class Ghost{
-    constructor(x, y, ctx){
-        this.x = x;
-        this.y = y;
+    constructor(ctx){
+        this.x = Math.floor(Math.random() * 900)
+        this.y = Math.floor(Math.random() * 500)
         this.w = 50;
         this.h = 50;
         this.ctx = ctx;
@@ -184,17 +185,17 @@ class Ghost{
     draw(){
 /*      this.ctx.src = "docs/assets/images/Project1/docs/assets/images/ghost-removebg-preview.png";
         this.ctx.drawImage(this.img,this.x, this.y, this.w, this.h) */
-        this.ctx.drawImage(this.img, this.x, this.y, 200, 200)   
+        this.ctx.drawImage(this.img, this.x % 900, this.y % 500, 200, 200)   
 /*         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.w, this.h) */
     }
 
     moveGhost(){
        /*  this.x = speedGhost % 900  */
-        this.x = Math.floor(Math.random(this.w) * this.w + this.w) + speedGhost % 900
-        this.y = Math.floor(Math.random(this.y) * this.y - this.y) + speedGhost % 500
+        this.x += speedGhost 
+        this.y += speedGhost
+     
         /* this.y = speedGhost % 500 */
-        speedGhost +=3
     }
 }
 
@@ -293,7 +294,7 @@ class Game {
     
         start(){
             this.intervalId = setInterval(this.update, 1000/60);
-            this.ghost = new Ghost(0, 0, this.ctx)
+            this.ghost = new Ghost(this.ctx)
             this.camera = new Camera(this.ctx)
             this.birds = new Birds(0,0,this.ctx);
             this.eyes = new Eyes(0,0,this.ctx);
@@ -310,7 +311,7 @@ class Game {
             clearInterval(this.intervalId)
             let ghost = this.ghost;
             let camera = this.camera;
-            if(ghost.x > camera.x && ghost.x + ghost.w < camera.x + camera.w && ghost.y > camera.y && ghost.y + ghost.h < camera.y + camera.h){
+            if(ghost.x % 900 > camera.x && ghost.x % 900 + ghost.w < camera.x + camera.w && ghost.y % 500> camera.y && ghost.y % 500 + ghost.h < camera.y + camera.h){
                restartGame.classList.remove('hidden');
                 myCanvas.classList.add('hidden');
                 btns.classList.add('hidden');
